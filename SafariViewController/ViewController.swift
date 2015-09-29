@@ -7,19 +7,26 @@
 //
 
 import UIKit
+import SafariServices
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SFSafariViewControllerDelegate {
+    
+    let website = "https://swiftcasts.com"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func openSafariViewController(sender: UIButton) {
+        if let websiteUrl = NSURL(string: website) {
+            let safariViewController = SFSafariViewController(URL: websiteUrl)
+            safariViewController.delegate = self
+            presentViewController(safariViewController, animated: true, completion: nil)
+        }
     }
-
+    
+    func safariViewControllerDidFinish(controller: SFSafariViewController) {
+        print("Closed Safari")
+    }
 
 }
-
